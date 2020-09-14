@@ -93,16 +93,17 @@ class Gd2 extends \Magento\Framework\Image\Adapter\AbstractAdapter
      * @param string $filename
      * @return bool
      */
-    private function validateURLScheme(string $filename) : bool
-    {
-        $allowed_schemes = ['ftp', 'ftps', 'http', 'https'];
-        $url = parse_url($filename);
-        if ($url && isset($url['scheme']) && !in_array($url['scheme'], $allowed_schemes)) {
-            return false;
-        }
-
-        return true;
+   private function validateURLScheme(string $filename) : bool
+{
+    $allowed_schemes = ['ftp', 'ftps', 'http', 'https'];
+    $url = parse_url($filename);
+    if ($url && isset($url['scheme']) && strlen($url['scheme']) > 1 && !in_array($url['scheme'], $allowed_schemes)) {
+        return false;
     }
+
+    return true;
+}
+
 
     /**
      * Checks whether memory limit is reached.
